@@ -1,0 +1,71 @@
+﻿@model Demo.Web.ViewModels.CreateEmployeeViewModel
+
+@{
+    ViewBag.Title = "Create Employee";
+}
+
+@section DevExpressStyles {
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionType = ExtensionType.FormLayout },
+        new StyleSheet { ExtensionType = ExtensionType.TextBox },
+        new StyleSheet { ExtensionType = ExtensionType.RadioButtonList },
+        new StyleSheet { ExtensionType = ExtensionType.DateEdit },
+        new StyleSheet { ExtensionType = ExtensionType.ComboBox },
+        new StyleSheet { ExtensionType = ExtensionType.Button },
+        new StyleSheet { ExtensionType = ExtensionType.Label },
+        new StyleSheet { ExtensionType = ExtensionType.CallbackPanel }
+        )
+}
+
+@section DevExpressScripts
+{
+    @Html.DevExpress().GetScripts(
+        new Script { ExtensionType = ExtensionType.FormLayout },
+        new Script { ExtensionType = ExtensionType.TextBox },
+        new Script { ExtensionType = ExtensionType.RadioButtonList },
+        new Script { ExtensionType = ExtensionType.DateEdit },
+        new Script { ExtensionType = ExtensionType.ComboBox },
+        new Script { ExtensionType = ExtensionType.Button },
+        new Script { ExtensionType = ExtensionType.Label },
+        new Script { ExtensionType = ExtensionType.CallbackPanel }
+        )
+}
+
+@{
+    Html.EnableClientValidation();
+    Html.EnableUnobtrusiveJavaScript();
+}
+
+@section styles
+{
+    <style type="text/css">
+        .groupheaderLevel1 {
+            position: relative;
+            left: 50% !important;
+            transform: translateX(-50%);
+        }
+    </style>
+}
+<div class="row justify-content-center">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+        <div class="card shadow-lg border-0 rounded-lg mt-5">
+            <div class="card-header">
+                <h3 class="text-center font-weight-light my-4">@ViewBag.Title</h3>
+            </div>
+            <div class="card-body">
+                @Html.Partial("_CreateEmployeeFormLayoutPartial", Model)
+            </div>
+        </div>
+        <hr/>
+        <div class="text-center">
+            @Html.ActionLink("Go back to Index", "Index", "Home")
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        const toastType = '@TempData["ToastType"]', toastMessage = '@TempData["ToastMessage"]';
+        DisplayToastMessage(toastType, toastMessage);
+    </script>
+}

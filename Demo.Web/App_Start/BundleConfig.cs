@@ -19,12 +19,20 @@ namespace Demo.Web
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            bundles.Add(new ScriptBundle("~/scripts/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/styles/bootstrap").Include(
+                      "~/Content/bootstrap.css"));
+
+            bundles.Add(new ScriptBundle("~/scripts/packages").Include(
+                "~/Scripts/toastr.js"));
+
+            bundles.Add(new StyleBundle("~/styles/packages").Include(
+                "~/Content/toastr.css"));
+
+            bundles.Add(new ScriptBundle("~/scripts/toast").Include(
+                "~/Scripts/Toast.js"));
         }
     }
 }

@@ -1,0 +1,171 @@
+﻿@using System.Web.UI.WebControls
+@model Demo.Web.ViewModels.CreateEmployeeViewModel
+
+@functions
+{
+    private void LayoutItemCommonSettings(MVCxFormLayoutItem layoutItem, int columnSpan, string caption, FieldRequiredMarkMode requiredMarkDisplayMode)
+    {
+        layoutItem.ColumnSpan = columnSpan;
+        layoutItem.Caption = caption;
+        layoutItem.RequiredMarkDisplayMode = requiredMarkDisplayMode;
+        layoutItem.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+        layoutItem.Width = Unit.Percentage(100);
+    }
+
+    private void TextBoxCommonSettings(TextBoxSettings textBoxSettings, string name, string nullText, bool isRequired)
+    {
+        textBoxSettings.Name = name;
+        textBoxSettings.Properties.NullText = nullText;
+        textBoxSettings.Properties.ValidationSettings.RequiredField.IsRequired = isRequired;
+        textBoxSettings.Properties.ValidationSettings.RequiredField.ErrorText = "*";
+        textBoxSettings.Width = Unit.Percentage(100);
+        textBoxSettings.ShowModelErrors = true;
+        textBoxSettings.Properties.NullTextDisplayMode = NullTextDisplayMode.UnfocusedAndFocused;
+        textBoxSettings.Properties.ValidationSettings.SetFocusOnError = true;
+        textBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.Text;
+        textBoxSettings.Properties.ValidationSettings.Display = Display.Dynamic;
+        textBoxSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+        textBoxSettings.Properties.ValidationSettings.ValidateOnLeave = true;
+    }
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+    @Html.DevExpress().FormLayout(formLayoutSettings =>
+    {
+        formLayoutSettings.Name = "CreateEmployeeFormLayout";
+        formLayoutSettings.Width = Unit.Percentage(100);
+        formLayoutSettings.ColumnCount = 12;
+        formLayoutSettings.Items.AddGroupItem(layoutGroup =>
+        {
+            layoutGroup.ColumnCount = 12;
+            layoutGroup.ColumnSpan = 12;
+            layoutGroup.Width = Unit.Percentage(100);
+            layoutGroup.UseDefaultPaddings = true;
+            layoutGroup.GridSettings.StretchLastItem = DefaultBoolean.True;
+            layoutGroup.GridSettings.WrapCaptionAtWidth = 800;
+            layoutGroup.Caption = "EMPLOYEE INFORMATION";
+            layoutGroup.GroupBoxDecoration = GroupBoxDecoration.HeadingLine;
+            layoutGroup.GroupBoxStyle.Caption.Font.Bold = true;
+            layoutGroup.GroupBoxStyle.Caption.CssClass = "groupheaderLevel1";
+            layoutGroup.GroupBoxStyle.Caption.Font.Size = 12;
+            layoutGroup.Items.Add(m => m.FirstName, layoutItem =>
+            {
+                LayoutItemCommonSettings(layoutItem, 12, "First Name", FieldRequiredMarkMode.Required);
+                layoutItem.NestedExtension().TextBox(textBoxSettings =>
+                {
+                    TextBoxCommonSettings(textBoxSettings, "FirstName", "First Name", true);
+                });
+            });
+
+            layoutGroup.Items.Add(m => m.MiddleName, layoutItem =>
+            {
+                LayoutItemCommonSettings(layoutItem, 12, "Middle Name", FieldRequiredMarkMode.Optional);
+                layoutItem.NestedExtension().TextBox(textBoxSettings =>
+                {
+                    TextBoxCommonSettings(textBoxSettings, "MiddleName", "Middle Name", false);
+                });
+            });
+
+            layoutGroup.Items.Add(m => m.LastName, layoutItem =>
+            {
+                LayoutItemCommonSettings(layoutItem, 12, "Last Name", FieldRequiredMarkMode.Required);
+                layoutItem.NestedExtension().TextBox(textBoxSettings =>
+                {
+                    TextBoxCommonSettings(textBoxSettings, "LastName", "Last Name", true);
+                });
+            });
+
+            layoutGroup.Items.Add(m => m.Gender, layoutItem =>
+            {
+                LayoutItemCommonSettings(layoutItem, 12, "Gender", FieldRequiredMarkMode.Required);
+                layoutItem.NestedExtension().RadioButtonList(radioButtonListSettings =>
+                {
+                    radioButtonListSettings.Name = "Gender";
+                    radioButtonListSettings.Properties.ValueType = typeof(string);
+                    radioButtonListSettings.Properties.Items.Add("MALE");
+                    radioButtonListSettings.Properties.Items.Add("FEMALE");
+                    radioButtonListSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    radioButtonListSettings.Properties.ValidationSettings.RequiredField.ErrorText = "*";
+                    radioButtonListSettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                    radioButtonListSettings.Properties.RepeatLayout = RepeatLayout.Table;
+                    radioButtonListSettings.Properties.RepeatColumns = 2;
+                    radioButtonListSettings.ControlStyle.Border.BorderStyle = BorderStyle.None;
+                    radioButtonListSettings.Width = Unit.Percentage(100);
+                    radioButtonListSettings.ShowModelErrors = true;
+                    radioButtonListSettings.Properties.ValidationSettings.SetFocusOnError = true;
+                    radioButtonListSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.Text;
+                    radioButtonListSettings.Properties.ValidationSettings.Display = Display.Dynamic;
+                    radioButtonListSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+                    radioButtonListSettings.Properties.ValidationSettings.ValidateOnLeave = true;
+                });
+            });
+
+            layoutGroup.Items.Add(m => m.Dob, layoutItem =>
+            {
+                LayoutItemCommonSettings(layoutItem, 12, "Date of Birth", FieldRequiredMarkMode.Required);
+                layoutItem.NestedExtension().DateEdit(dateEditSettings =>
+                {
+                    dateEditSettings.Name = "Dob";
+                    dateEditSettings.Properties.NullText = "Date of Birth";
+                    dateEditSettings.Properties.HelpText = "Format(MM/DD/YYYY)";
+                    dateEditSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    dateEditSettings.Properties.ValidationSettings.RequiredField.ErrorText = "*";
+                    dateEditSettings.Properties.DisplayFormatString = "MMMM dd, yyyy";
+                    dateEditSettings.Width = Unit.Percentage(100);
+                    dateEditSettings.ShowModelErrors = true;
+                    dateEditSettings.Properties.ValidationSettings.SetFocusOnError = true;
+                    dateEditSettings.Properties.NullTextDisplayMode = NullTextDisplayMode.UnfocusedAndFocused;
+                    dateEditSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.Text;
+                    dateEditSettings.Properties.ValidationSettings.Display = Display.Dynamic;
+                    dateEditSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+                    dateEditSettings.Properties.ValidationSettings.ValidateOnLeave = true;
+                });
+            });
+
+            layoutGroup.Items.Add(m => m.EmployeeType, layoutItem =>
+            {
+                LayoutItemCommonSettings(layoutItem, 12, "Employee Type", FieldRequiredMarkMode.Required);
+                layoutItem.NestedExtension().ComboBox(comboBoxSettings =>
+                {
+                    comboBoxSettings.Name = "EmployeeType";
+                    comboBoxSettings.Properties.DataSource = Model.EmployeeTypes;
+                    comboBoxSettings.Properties.ValueField = "Id";
+                    comboBoxSettings.Properties.TextField = "EmployeeTypeDescription";
+                    comboBoxSettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+                    comboBoxSettings.Properties.ValueType = typeof(string);
+                    comboBoxSettings.Properties.NullText = "Employee Type";
+                    comboBoxSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                    comboBoxSettings.Properties.ValidationSettings.RequiredField.ErrorText = "*";
+                    comboBoxSettings.Width = Unit.Percentage(100);
+                    comboBoxSettings.ShowModelErrors = true;
+                    comboBoxSettings.Properties.NullTextDisplayMode = NullTextDisplayMode.UnfocusedAndFocused;
+                    comboBoxSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                    comboBoxSettings.Properties.ValidationSettings.SetFocusOnError = true;
+                    comboBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.Text;
+                    comboBoxSettings.Properties.ValidationSettings.Display = Display.Dynamic;
+                    comboBoxSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+                    comboBoxSettings.Properties.ValidationSettings.ValidateOnLeave = true;
+                });
+            });
+
+            layoutGroup.Items.AddEmptyItem();
+            layoutGroup.Items.Add(layoutItem =>
+            {
+                layoutItem.ColumnSpan = 12;
+                layoutItem.ShowCaption = DefaultBoolean.False;
+                layoutItem.Width = Unit.Percentage(100);
+                layoutItem.HorizontalAlign = FormLayoutHorizontalAlign.Center;
+                layoutItem.NestedExtension().Button(buttonSettings =>
+                {
+                    buttonSettings.Name = "ButtonSubmit";
+                    buttonSettings.Text = "SUBMIT";
+                    buttonSettings.ControlStyle.CssClass = "btn btn-info";
+                    buttonSettings.Width = Unit.Pixel(200);
+                    buttonSettings.UseSubmitBehavior = true;
+                });
+            });
+        });
+    }).GetHtml()
+}

@@ -102,12 +102,12 @@
                 });
             });
 
-            layoutGroup.Items.Add(m => m.Dob, layoutItem =>
+            layoutGroup.Items.Add(m => m.DateOfBirth, layoutItem =>
             {
                 LayoutItemCommonSettings(layoutItem, 12, "Date of Birth", FieldRequiredMarkMode.Required);
                 layoutItem.NestedExtension().DateEdit(dateEditSettings =>
                 {
-                    dateEditSettings.Name = "Dob";
+                    dateEditSettings.Name = "DateOfBirth";
                     dateEditSettings.Properties.NullText = "Date of Birth";
                     dateEditSettings.Properties.HelpText = "Format(MM/DD/YYYY)";
                     dateEditSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;

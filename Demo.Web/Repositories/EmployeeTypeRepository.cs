@@ -35,5 +35,6 @@ namespace Demo.Web.Repositories
                 return await connection.QueryAsync<EmployeeType>(query);
             }
         }
+
     }
 }

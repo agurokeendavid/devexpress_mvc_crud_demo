@@ -1,0 +1,140 @@
+﻿@using System.Web.UI.WebControls
+
+@model Demo.Web.ViewModels.HomeViewModel
+
+@Html.DevExpress().GridView(gridViewSettings =>
+{
+    gridViewSettings.Name = "EmployeesGridView";
+    gridViewSettings.CallbackRouteValues = new { Controller = "Home", Action = "EmployeesGridViewPartial" };
+    gridViewSettings.SettingsEditing.UpdateRowRouteValues = new { Controller = "Home", Action = "UpdateEmployeeGridViewPartial" };
+    gridViewSettings.SettingsEditing.DeleteRowRouteValues = new { Controller = "Home", Action = "DeleteEmployeeGridViewPartial" };
+    gridViewSettings.Width = Unit.Percentage(100);
+    gridViewSettings.SettingsPager.PageSizeItemSettings.Visible = true;
+    gridViewSettings.SettingsLoadingPanel.ImagePosition = ImagePosition.Top;
+    gridViewSettings.SettingsPager.Mode = GridViewPagerMode.ShowPager;
+    gridViewSettings.SettingsPager.SEOFriendly = SEOFriendlyMode.Enabled;
+    gridViewSettings.SettingsBehavior.AllowFocusedRow = true;
+    gridViewSettings.Styles.Header.HorizontalAlign = HorizontalAlign.Center;
+    gridViewSettings.KeyFieldName = "Id";
+    gridViewSettings.SettingsSearchPanel.CustomEditorName = "SearchEmployeesTextBox";
+    gridViewSettings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+    gridViewSettings.SettingsBehavior.ConfirmDelete = true;
+    gridViewSettings.CommandColumn.Caption = "Action";
+    gridViewSettings.CommandColumn.Visible = true;
+    gridViewSettings.CommandColumn.VisibleIndex = 6;
+    gridViewSettings.CommandColumn.ShowDeleteButton = true;
+    gridViewSettings.CommandColumn.ShowEditButton = true;
+    gridViewSettings.ClientSideEvents.RowDblClick = "function(s, e) { s.StartEditRow(e.visibleIndex); }";
+    gridViewSettings.ClientSideEvents.ToolbarItemClick = "function(s, e) { onEmployeesGridViewToolbarItemClick(s, e); }";
+    gridViewSettings.Toolbars.Add(gridViewToolbar =>
+    {
+        gridViewToolbar.Enabled = true;
+        gridViewToolbar.EnableAdaptivity = true;
+        gridViewToolbar.SettingsAdaptivity.EnableCollapseRootItemsToIcons = true;
+        gridViewToolbar.Items.Add(gridViewToolbarItem =>
+        {
+            gridViewToolbarItem.Alignment = MenuItemAlignment.Left;
+            gridViewToolbarItem.BeginGroup = true;
+            gridViewToolbarItem.AdaptivePriority = 1;
+            gridViewToolbarItem.SetTemplateContent(menuItem =>
+            {
+                Html.DevExpress().ButtonEdit(buttonEditSettings =>
+                {
+                    buttonEditSettings.Name = "SearchEmployeesTextBox";
+                    buttonEditSettings.Width = Unit.Percentage(100);
+                    buttonEditSettings.Properties.NullText = "Search...";
+                    buttonEditSettings.Properties.NullTextDisplayMode = NullTextDisplayMode.UnfocusedAndFocused;
+                    buttonEditSettings.Properties.Buttons.Add().Image.IconID = IconID.FindFind32x32gray;
+                }).Render();
+            });
+        });
+
+        gridViewToolbar.Items.Add(gridViewToolbarItem =>
+        {
+            gridViewToolbarItem.Name = "EmployeesGridViewToolbarButtonCreateEmployee";
+            gridViewToolbarItem.Alignment = MenuItemAlignment.Left;
+            gridViewToolbarItem.BeginGroup = true;
+            gridViewToolbarItem.AdaptivePriority = 0;
+            gridViewToolbarItem.Command = GridViewToolbarCommand.Custom;
+            gridViewToolbarItem.Text = "Create Employee";
+            gridViewToolbarItem.Image.IconID = "data_addnewdatasource_32x32office2013";
+        });
+
+        gridViewToolbar.Items.Add(gridViewToolbarItem =>
+        {
+            gridViewToolbarItem.Alignment = MenuItemAlignment.Left;
+            gridViewToolbarItem.BeginGroup = true;
+            gridViewToolbarItem.AdaptivePriority = 2;
+            gridViewToolbarItem.Command = GridViewToolbarCommand.Refresh;
+            gridViewToolbarItem.Image.IconID = "actions_refresh_32x32office2013";
+        });
+    });
+    gridViewSettings.Columns.Add(gridViewColumn =>
+    {
+        gridViewColumn.Visible = false;
+        gridViewColumn.FieldName = "Id";
+
+    });
+    gridViewSettings.Columns.Add(gridViewColumn =>
+    {
+        gridViewColumn.FieldName = "FirstName";
+        gridViewColumn.VisibleIndex = 0;
+        gridViewColumn.Caption = "FIRST NAME";
+        gridViewColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+    gridViewSettings.Columns.Add(gridViewColumn =>
+    {
+        gridViewColumn.FieldName = "MiddleName";
+        gridViewColumn.VisibleIndex = 1;
+        gridViewColumn.Caption = "MIDDLE NAME";
+        gridViewColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+    gridViewSettings.Columns.Add(gridViewColumn =>
+    {
+        gridViewColumn.FieldName = "LastName";
+        gridViewColumn.VisibleIndex = 2;
+        gridViewColumn.Caption = "LAST NAME";
+        gridViewColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    gridViewSettings.Columns.Add(gridViewColumn =>
+    {
+        gridViewColumn.FieldName = "Gender";
+        gridViewColumn.VisibleIndex = 3;
+        gridViewColumn.Caption = "GENDER";
+        gridViewColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        gridViewColumn.EditorProperties().ComboBox(comboBoxProperties =>
+        {
+            comboBoxProperties.Items.Add("MALE");
+            comboBoxProperties.Items.Add("FEMALE");
+            comboBoxProperties.ValueType = typeof(string);
+        });
+    });
+    gridViewSettings.Columns.Add(gridViewColumn =>
+    {
+        gridViewColumn.FieldName = "DateOfBirth";
+        gridViewColumn.VisibleIndex = 4;
+        gridViewColumn.ColumnType = MVCxGridViewColumnType.DateEdit;
+        gridViewColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        gridViewColumn.EditorProperties().DateEdit(dateEditProperties =>
+        {
+            dateEditProperties.DisplayFormatString = "dddd MMMM dd, yyyy hh:mm tt";
+            dateEditProperties.DisplayFormatInEditMode = true;
+        });
+    });
+    gridViewSettings.Columns.Add(gridViewColumn =>
+    {
+        gridViewColumn.FieldName = "EmployeeTypeId";
+        gridViewColumn.VisibleIndex = 5;
+        gridViewColumn.Caption = "EMPLOYEE TYPE";
+        gridViewColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        gridViewColumn.EditorProperties().ComboBox(comboBoxProperties =>
+        {
+            comboBoxProperties.DataSource = Model.EmployeeTypes;
+            comboBoxProperties.TextField = "EmployeeTypeDescription";
+            comboBoxProperties.ValueField = "Id";
+            comboBoxProperties.ValueType = typeof(string);
+        });
+    });
+
+}).Bind(Model.Employees).GetHtml()

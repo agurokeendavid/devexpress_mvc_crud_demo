@@ -12,9 +12,8 @@ namespace Demo.Web.Models
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Gender { get; set; }
-        public DateTime Dob { get; set; }
+        public DateTime DateOfBirth { get; set; }
         public string EmployeeTypeId { get; set; }
         public DateTime DateCreated { get; set; }
-        public EmployeeType EmployeeType { get; set; }
     }
 }

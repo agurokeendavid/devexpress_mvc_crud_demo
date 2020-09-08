@@ -298,6 +298,7 @@
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
     <Content Include="Views\Home\CreateEmployee.cshtml" />
     <Content Include="Views\Home\_CreateEmployeeFormLayoutPartial.cshtml" />
+    <Content Include="Views\Home\_EmployeesGridViewPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

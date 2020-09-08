@@ -21,7 +21,7 @@ namespace Demo.Web.ViewModels
         public string Gender { get; set; }
 
         [Required(ErrorMessage = "*")]
-        public DateTime Dob { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
         [Required(ErrorMessage = "*")]
         public string EmployeeType { get; set; }

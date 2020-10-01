@@ -2,34 +2,6 @@
 @{
     ViewBag.Title = "List of Category";
 }
-@section DevExpressStyles {
-    @Html.DevExpress().GetStyleSheets(
-        new StyleSheet { ExtensionType = ExtensionType.FormLayout },
-        new StyleSheet { ExtensionType = ExtensionType.TextBox },
-        new StyleSheet { ExtensionType = ExtensionType.RadioButtonList },
-        new StyleSheet { ExtensionType = ExtensionType.DateEdit },
-        new StyleSheet { ExtensionType = ExtensionType.ComboBox },
-        new StyleSheet { ExtensionType = ExtensionType.Button },
-        new StyleSheet { ExtensionType = ExtensionType.Label },
-        new StyleSheet { ExtensionType = ExtensionType.CallbackPanel },
-        new StyleSheet { ExtensionType = ExtensionType.GridView }
-        )
-}
-
-@section DevExpressScripts
-{
-    @Html.DevExpress().GetScripts(
-        new Script { ExtensionType = ExtensionType.FormLayout },
-        new Script { ExtensionType = ExtensionType.TextBox },
-        new Script { ExtensionType = ExtensionType.RadioButtonList },
-        new Script { ExtensionType = ExtensionType.DateEdit },
-        new Script { ExtensionType = ExtensionType.ComboBox },
-        new Script { ExtensionType = ExtensionType.Button },
-        new Script { ExtensionType = ExtensionType.Label },
-        new Script { ExtensionType = ExtensionType.CallbackPanel },
-        new Script { ExtensionType = ExtensionType.GridView }
-        )
-}
 
 @{
     Html.EnableClientValidation();

@@ -92,15 +92,15 @@ namespace Demo.Web.Controllers
         //    return PartialView("_EmployeesGridViewPartial", viewModel);
         //}
 
-        //[HttpGet]
-        //public async Task<ViewResult> CreateEmployee()
-        //{
-        //    var viewModel = new CreateEmployeeViewModel
-        //    {
-        //        EmployeeTypes = await GetEmployeeTypeAsync()
-        //    };
-        //    return View(viewModel);
-        //}
+        [HttpGet]
+        public async Task<ViewResult> CreateEmployee()
+        {
+            var viewModel = new CreateEmployeeViewModel
+            {
+                EmployeeTypes = await GetEmployeeTypeAsync()
+            };
+            return View(viewModel);
+        }
 
         //[HttpPost]
         //public async Task<ActionResult> CreateEmployee(CreateEmployeeViewModel viewModel)

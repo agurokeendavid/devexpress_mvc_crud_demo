@@ -79,5 +79,12 @@
         gvColumn.Caption = "EMPLOYEE TYPE";
         gvColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
         gvColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        gvColumn.EditorProperties().ComboBox(cmbSettings =>
+        {
+            cmbSettings.DataSource = Model.EmployeeTypes;
+            cmbSettings.TextField = "EmployeeTypeDescription";
+            cmbSettings.ValueField = "Id";
+            cmbSettings.ValueType = typeof(string);
+        });
     });
 }).Bind(Model.Employees).GetHtml()

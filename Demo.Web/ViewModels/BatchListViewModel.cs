@@ -10,5 +10,6 @@ namespace Demo.Web.ViewModels
     {
         public IEnumerable<Reference> References { get; set; }
         public IEnumerable<Employee> Employees { get; set; }
+        public IEnumerable<EmployeeType> EmployeeTypes { get; set; }
     }
 }

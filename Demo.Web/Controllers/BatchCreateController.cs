@@ -117,7 +117,8 @@ namespace Demo.Web.Controllers
             ViewData["ReferenceId"] = referenceId;
             var viewModel = new BatchListViewModel()
             {
-                Employees = await GetEmployeesByReferenceIdAsync(referenceId, IsDeleted.No)
+                Employees = await GetEmployeesByReferenceIdAsync(referenceId, IsDeleted.No),
+                EmployeeTypes = await GetEmployeeTypeAsync()
             };
             return PartialView("_BatchListMasterDetailGridViewPartial", viewModel);
         }

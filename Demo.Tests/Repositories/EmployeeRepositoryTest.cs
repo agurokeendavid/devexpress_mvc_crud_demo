@@ -37,7 +37,7 @@ namespace Demo.Tests.Repositories
         public async Task Get_Employees_Async_Should_Return_True()
         {
             // Act
-            var employees = await GetEmployeesAsync();
+            var employees = await GetEmployeesByReferenceIdAsync("123");
 
             // Assert
             Assert.IsTrue(employees.Cast<dynamic>().Any());
@@ -50,7 +50,7 @@ namespace Demo.Tests.Repositories
             int actual = 1;
 
             // Act
-            var employees = await GetEmployeesAsync();
+            var employees = await GetEmployeesByReferenceIdAsync("123");
 
             // Assert
             Assert.AreEqual(employees.Cast<dynamic>().Count(), actual);

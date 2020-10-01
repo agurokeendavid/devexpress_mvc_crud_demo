@@ -1,0 +1,83 @@
+﻿@using System.Web.UI.WebControls
+@model Demo.Web.ViewModels.BatchListViewModel
+@Html.DevExpress().GridView(gvSettings =>
+{
+    gvSettings.Name = $"gvMasterGridDetail{ViewData["ReferenceId"]}";
+    gvSettings.SettingsDetail.MasterGridName = "gvBatchListCategory";
+    gvSettings.Width = Unit.Percentage(100);
+    gvSettings.CallbackRouteValues = new { Controller = "BatchCreate", Action = "BatchListMasterDetailGridViewPartial", ReferenceId = ViewData["ReferenceId"] };
+    gvSettings.KeyFieldName = "Id";
+
+    gvSettings.Columns.Add(gvColumn =>
+    {
+        gvColumn.Visible = false;
+        gvColumn.FieldName = "Id";
+    });
+
+    gvSettings.Columns.Add(gvColumn =>
+    {
+        gvColumn.FieldName = "Reference.ReferenceNo";
+        gvColumn.VisibleIndex = 0;
+        gvColumn.ReadOnly = true;
+        gvColumn.Caption = "REF #";
+        gvColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        gvColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    gvSettings.Columns.Add(gvColumn =>
+    {
+        gvColumn.FieldName = "FirstName";
+        gvColumn.VisibleIndex = 0;
+        gvColumn.Caption = "FIRST NAME";
+        gvColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        gvColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+    gvSettings.Columns.Add(gvColumn =>
+    {
+        gvColumn.FieldName = "MiddleName";
+        gvColumn.VisibleIndex = 1;
+        gvColumn.Caption = "MIDDLE NAME";
+        gvColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        gvColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+    gvSettings.Columns.Add(gvColumn =>
+    {
+        gvColumn.FieldName = "LastName";
+        gvColumn.VisibleIndex = 2;
+        gvColumn.Caption = "LAST NAME";
+        gvColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        gvColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    gvSettings.Columns.Add(gvColumn =>
+    {
+        gvColumn.FieldName = "Gender";
+        gvColumn.VisibleIndex = 3;
+        gvColumn.Caption = "GENDER";
+        gvColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        gvColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+
+    gvSettings.Columns.Add(gvColumn =>
+    {
+        gvColumn.FieldName = "DateOfBirth";
+        gvColumn.VisibleIndex = 4;
+        gvColumn.ColumnType = MVCxGridViewColumnType.DateEdit;
+        gvColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        gvColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        gvColumn.EditorProperties().DateEdit(deSettings =>
+        {
+            deSettings.DisplayFormatString = "dddd MMMM dd, yyyy";
+            deSettings.DisplayFormatInEditMode = true;
+        });
+    });
+
+    gvSettings.Columns.Add(gvColumn =>
+    {
+        gvColumn.FieldName = "EmployeeTypeId";
+        gvColumn.VisibleIndex = 5;
+        gvColumn.Caption = "EMPLOYEE TYPE";
+        gvColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        gvColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+}).Bind(Model.Employees).GetHtml()

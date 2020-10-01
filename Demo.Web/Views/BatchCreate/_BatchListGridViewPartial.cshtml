@@ -1,0 +1,48 @@
+﻿@using System.Web.UI.WebControls
+@model Demo.Web.ViewModels.BatchListViewModel
+@Html.DevExpress().GridView(gvSettings =>
+{
+    gvSettings.Name = "gvBatchListCategory";
+    gvSettings.Width = Unit.Percentage(100);
+    gvSettings.KeyFieldName = "ReferenceId";
+    gvSettings.SettingsBehavior.AllowFocusedRow = true;
+    gvSettings.SettingsDetail.AllowOnlyOneMasterRowExpanded = false;
+    gvSettings.SettingsDetail.ShowDetailRow = true;
+    gvSettings.CallbackRouteValues = new { Controller = "BatchCreate", Action = "BatchListGridViewPartial" };
+    gvSettings.Columns.Add(gvColumn =>
+    {
+        gvColumn.Visible = false;
+        gvColumn.FieldName = "ReferenceId";
+    });
+    gvSettings.Columns.Add(gvColumn =>
+    {
+        gvColumn.FieldName = "ReferenceNo";
+        gvColumn.VisibleIndex = 0;
+        gvColumn.ReadOnly = true;
+        gvColumn.Caption = "REF #";
+        gvColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        gvColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+    });
+    gvSettings.Columns.Add(gvColumn =>
+    {
+        gvColumn.FieldName = "DateCreated";
+        gvColumn.VisibleIndex = 1;
+        gvColumn.ColumnType = MVCxGridViewColumnType.DateEdit;
+        gvColumn.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        gvColumn.HeaderStyle.HorizontalAlign = HorizontalAlign.Center;
+        gvColumn.Caption = "DATE CREATED";
+        gvColumn.EditorProperties().DateEdit(deSettings =>
+        {
+            deSettings.DisplayFormatString = "dddd MMMM dd, yyyy hh:mm tt";
+            deSettings.DisplayFormatInEditMode = true;
+        });
+    });
+    gvSettings.PreRender = (sender, e) => {
+                                              ((MVCxGridView)sender).DetailRows.ExpandRow(0);
+    };
+    gvSettings.SetDetailRowTemplateContent(c =>
+    {
+        ViewContext.Writer.Write($"Reference No: <b>{DataBinder.Eval(c.DataItem, "ReferenceNo")}</b><br/><br/>");
+        Html.RenderAction("BatchListMasterDetailGridViewPartial", new { ReferenceId = DataBinder.Eval(c.DataItem, "ReferenceId") });
+    });
+}).Bind(Model.References).GetHtml()

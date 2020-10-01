@@ -1,6 +1,6 @@
 ﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="@Url.Action("BatchList", "BatchCreate")">
             <img src="https://getbootstrap.com/docs/4.5/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
             CRUD Demo
         </a>
@@ -9,8 +9,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav ml-auto">
-                <li><a href="@Url.Action("Index", "Home")" class="nav-link @(StringComparer.OrdinalIgnoreCase.Equals(ViewContext.RouteData.Values["Action"].ToString(), "Index") ? "active" : null)">Employees</a></li>
-                <li><a href="@Url.Action("CreateEmployee", "Home")" class="nav-link @(StringComparer.OrdinalIgnoreCase.Equals(ViewContext.RouteData.Values["Action"].ToString(), "CreateEmployee") ? "active" : null)">Create Employee</a></li>
+                @*<li><a href="@Url.Action("Index", "Home")" class="nav-link @(StringComparer.OrdinalIgnoreCase.Equals(ViewContext.RouteData.Values["Action"].ToString(), "Index") ? "active" : null)">Employees</a></li>
+        <li><a href="@Url.Action("CreateEmployee", "Home")" class="nav-link @(StringComparer.OrdinalIgnoreCase.Equals(ViewContext.RouteData.Values["Action"].ToString(), "CreateEmployee") ? "active" : null)">Create Employee</a></li>*@
+                <li><a href="@Url.Action("BatchList", "BatchCreate")" class="nav-link @(StringComparer.OrdinalIgnoreCase.Equals(ViewContext.RouteData.Values["Action"].ToString(), "BatchList") ? "active" : null)">Batch List of Employees</a></li>
+                <li><a href="@Url.Action("BatchCreate", "BatchCreate")" class="nav-link @(StringComparer.OrdinalIgnoreCase.Equals(ViewContext.RouteData.Values["Action"].ToString(), "BatchCreate") ? "active" : null)">Batch Create Employees</a></li>
             </ul>
         </div>
     </div>

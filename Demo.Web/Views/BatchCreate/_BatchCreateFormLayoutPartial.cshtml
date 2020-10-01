@@ -1,0 +1,203 @@
+﻿@using System.Web.UI.WebControls
+@model Demo.Web.ViewModels.BatchCreateViewModel
+@using (Html.BeginForm())
+{
+    Html.DevExpress().FormLayout(flSettings =>
+    {
+        flSettings.Name = "BatchCreateFormLayout";
+        flSettings.Width = Unit.Percentage(100);
+        flSettings.ColumnCount = 12;
+        flSettings.Items.Add(m => m.ReferenceId, layoutItem =>
+        {
+            layoutItem.ShowCaption = DefaultBoolean.False;
+            layoutItem.ColumnSpan = 12;
+            layoutItem.Width = Unit.Percentage(100);
+            layoutItem.ClientVisible = false;
+            layoutItem.NestedExtension().TextBox(txtSettings =>
+            {
+                txtSettings.Name = "ReferenceId";
+                txtSettings.ReadOnly = true;
+                txtSettings.Width = Unit.Percentage(100);
+                txtSettings.ClientVisible = false;
+            });
+        });
+        flSettings.Items.Add(m => m.ReferenceNo, layoutItem =>
+        {
+            layoutItem.Caption = "Reference No.";
+            layoutItem.Width = Unit.Percentage(100);
+            layoutItem.ColumnSpan = 12;
+            layoutItem.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+            layoutItem.NestedExtension().TextBox(txtSettings =>
+            {
+                txtSettings.Name = "ReferenceNo";
+                txtSettings.ReadOnly = true;
+                txtSettings.Width = Unit.Percentage(100);
+            });
+        });
+        flSettings.Items.Add(m => m.FirstName, layoutItem =>
+        {
+            layoutItem.Caption = "First Name";
+            layoutItem.Width = Unit.Percentage(100);
+            layoutItem.ColumnSpan = 12;
+            layoutItem.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+            layoutItem.NestedExtension().TextBox(txtSettings =>
+            {
+                txtSettings.Name = "FirstName";
+                txtSettings.Width = Unit.Percentage(100);
+                txtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                txtSettings.Properties.ValidationSettings.RequiredField.ErrorText = "*";
+                txtSettings.ShowModelErrors = true;
+                txtSettings.Properties.ValidationSettings.SetFocusOnError = true;
+                txtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.Text;
+                txtSettings.Properties.ValidationSettings.Display = Display.Dynamic;
+                txtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+                txtSettings.Properties.ValidationSettings.ValidateOnLeave = true;
+            });
+        });
+
+        flSettings.Items.Add(m => m.MiddleName, layoutItem =>
+        {
+            layoutItem.Caption = "Middle Name";
+            layoutItem.Width = Unit.Percentage(100);
+            layoutItem.ColumnSpan = 12;
+            layoutItem.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+            layoutItem.NestedExtension().TextBox(txtSettings =>
+            {
+                txtSettings.Name = "MiddleName";
+                txtSettings.Width = Unit.Percentage(100);
+            });
+        });
+
+        flSettings.Items.Add(m => m.LastName, layoutItem =>
+        {
+            layoutItem.Caption = "Last Name";
+            layoutItem.Width = Unit.Percentage(100);
+            layoutItem.ColumnSpan = 12;
+            layoutItem.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+            layoutItem.NestedExtension().TextBox(txtSettings =>
+            {
+                txtSettings.Name = "LastName";
+                txtSettings.Width = Unit.Percentage(100);
+                txtSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                txtSettings.Properties.ValidationSettings.RequiredField.ErrorText = "*";
+                txtSettings.ShowModelErrors = true;
+                txtSettings.Properties.ValidationSettings.SetFocusOnError = true;
+                txtSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.Text;
+                txtSettings.Properties.ValidationSettings.Display = Display.Dynamic;
+                txtSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+                txtSettings.Properties.ValidationSettings.ValidateOnLeave = true;
+            });
+        });
+
+        flSettings.Items.Add(m => m.Gender, layoutItem =>
+        {
+            layoutItem.Caption = "Gender";
+            layoutItem.Width = Unit.Percentage(100);
+            layoutItem.ColumnSpan = 12;
+            layoutItem.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+            layoutItem.NestedExtension().RadioButtonList(radioButtonListSettings =>
+            {
+                radioButtonListSettings.Name = "Gender";
+                radioButtonListSettings.Properties.ValueType = typeof(string);
+                radioButtonListSettings.Properties.Items.Add("MALE");
+                radioButtonListSettings.Properties.Items.Add("FEMALE");
+                radioButtonListSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                radioButtonListSettings.Properties.ValidationSettings.RequiredField.ErrorText = "*";
+                radioButtonListSettings.Properties.RepeatDirection = RepeatDirection.Horizontal;
+                radioButtonListSettings.Properties.RepeatLayout = RepeatLayout.Table;
+                radioButtonListSettings.Properties.RepeatColumns = 2;
+                radioButtonListSettings.ControlStyle.Border.BorderStyle = BorderStyle.None;
+                radioButtonListSettings.Width = Unit.Percentage(100);
+                radioButtonListSettings.ShowModelErrors = true;
+                radioButtonListSettings.Properties.ValidationSettings.SetFocusOnError = true;
+                radioButtonListSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.Text;
+                radioButtonListSettings.Properties.ValidationSettings.Display = Display.Dynamic;
+                radioButtonListSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+                radioButtonListSettings.Properties.ValidationSettings.ValidateOnLeave = true;
+            });
+        });
+
+        flSettings.Items.Add(m => m.DateOfBirth, layoutItem =>
+        {
+            layoutItem.Caption = "Date of Birth";
+            layoutItem.Width = Unit.Percentage(100);
+            layoutItem.ColumnSpan = 12;
+            layoutItem.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+            layoutItem.NestedExtension().DateEdit(dateEditSettings =>
+            {
+                dateEditSettings.Name = "DateOfBirth";
+                dateEditSettings.Properties.HelpText = "Format(MM/DD/YYYY)";
+                dateEditSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                dateEditSettings.Properties.ValidationSettings.RequiredField.ErrorText = "*";
+                dateEditSettings.Properties.DisplayFormatString = "MMMM dd, yyyy";
+                dateEditSettings.Width = Unit.Percentage(100);
+                dateEditSettings.ShowModelErrors = true;
+                dateEditSettings.Properties.ValidationSettings.SetFocusOnError = true;
+                dateEditSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.Text;
+                dateEditSettings.Properties.ValidationSettings.Display = Display.Dynamic;
+                dateEditSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+                dateEditSettings.Properties.ValidationSettings.ValidateOnLeave = true;
+            });
+        });
+
+        flSettings.Items.Add(m => m.EmployeeTypeId, layoutItem =>
+        {
+            layoutItem.Caption = "Employee Type";
+            layoutItem.Width = Unit.Percentage(100);
+            layoutItem.ColumnSpan = 12;
+            layoutItem.CaptionSettings.Location = LayoutItemCaptionLocation.Top;
+            layoutItem.NestedExtension().ComboBox(comboBoxSettings =>
+            {
+                comboBoxSettings.Name = "EmployeeTypeId";
+                comboBoxSettings.Properties.DataSource = Model.EmployeeTypes;
+                comboBoxSettings.Properties.ValueField = "Id";
+                comboBoxSettings.Properties.TextField = "EmployeeTypeDescription";
+                comboBoxSettings.Properties.DropDownStyle = DropDownStyle.DropDownList;
+                comboBoxSettings.Properties.ValueType = typeof(string);
+                comboBoxSettings.Properties.ValidationSettings.RequiredField.IsRequired = true;
+                comboBoxSettings.Properties.ValidationSettings.RequiredField.ErrorText = "*";
+                comboBoxSettings.Width = Unit.Percentage(100);
+                comboBoxSettings.ShowModelErrors = true;
+                comboBoxSettings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+                comboBoxSettings.Properties.ValidationSettings.SetFocusOnError = true;
+                comboBoxSettings.Properties.ValidationSettings.ErrorDisplayMode = ErrorDisplayMode.Text;
+                comboBoxSettings.Properties.ValidationSettings.Display = Display.Dynamic;
+                comboBoxSettings.Properties.ValidationSettings.ErrorTextPosition = ErrorTextPosition.Bottom;
+                comboBoxSettings.Properties.ValidationSettings.ValidateOnLeave = true;
+            });
+        });
+
+        flSettings.Items.AddEmptyItem();
+
+        flSettings.Items.Add(layoutItem =>
+        {
+            layoutItem.ColumnSpan = 12;
+            layoutItem.ShowCaption = DefaultBoolean.False;
+            layoutItem.NestedExtension().Button(buttonSettings =>
+            {
+                buttonSettings.Name = "ButtonSubmit";
+                buttonSettings.Text = "SUBMIT";
+                buttonSettings.ControlStyle.CssClass = "btn btn-info";
+                buttonSettings.Width = Unit.Percentage(100);
+                buttonSettings.UseSubmitBehavior = true;
+            });
+        });
+        flSettings.Items.AddEmptyItem();
+
+        flSettings.Items.Add(layoutItem =>
+        {
+            layoutItem.ColumnSpan = 12;
+            layoutItem.ShowCaption = DefaultBoolean.False;
+            layoutItem.NestedExtension().Button(buttonSettings =>
+            {
+                buttonSettings.Name = "ButtonDone";
+                buttonSettings.Text = "DONE";
+                buttonSettings.ControlStyle.CssClass = "btn btn-success";
+                buttonSettings.Width = Unit.Percentage(100);
+                buttonSettings.UseSubmitBehavior = false;
+                buttonSettings.CausesValidation = false;
+                buttonSettings.RouteValues = new {Controller = "BatchCreate", Action = "BatchList"};
+            });
+        });
+    }).GetHtml();
+}

@@ -37,6 +37,8 @@
         formLayoutSettings.Name = "CreateEmployeeFormLayout";
         formLayoutSettings.Width = Unit.Percentage(100);
         formLayoutSettings.ColumnCount = 12;
+        formLayoutSettings.Styles.LayoutGroup.Cell.Paddings.Padding = Unit.Pixel(0);
+        formLayoutSettings.Styles.LayoutItem.Paddings.PaddingBottom = Unit.Pixel(8);
         formLayoutSettings.Items.AddGroupItem(layoutGroup =>
         {
             layoutGroup.ColumnCount = 12;
@@ -50,6 +52,7 @@
             layoutGroup.GroupBoxStyle.Caption.Font.Bold = true;
             layoutGroup.GroupBoxStyle.Caption.CssClass = "groupheaderLevel1";
             layoutGroup.GroupBoxStyle.Caption.Font.Size = 12;
+
             layoutGroup.Items.Add(m => m.FirstName, layoutItem =>
             {
                 LayoutItemCommonSettings(layoutItem, 12, "First Name", FieldRequiredMarkMode.Required);
